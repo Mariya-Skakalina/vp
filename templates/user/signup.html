@@ -1,0 +1,30 @@
+{%  extends 'layout/basis.html' %}
+{% block content %}
+    <div class="content3">
+        {% include 'layout/header.html' %}
+        <div class="signup  ">
+        <h3 id="signup">Регистрация</h3>
+        <form id="api_form" method="post">
+            {% csrf_token %}
+            <input placeholder="Nickname(login)" name="nickname" type="text">
+            <input placeholder="Email" name="email" type="email">
+            <input type="password" placeholder="Пароль" name="password">
+            <input type="button" id="send" value="Зарегистрироваться">
+        </form>
+        </div>
+    </div>
+    <script>
+        let myHeaders = new Headers();
+        myHeaders.append("Accept", "application/json");
+        document.getElementById('send').addEventListener('click',function () {
+            fetch('http://localhost:8000/api/user_reg/', {
+                method: 'post',
+                body: new FormData(document.getElementById('api_form')),
+                headers: myHeaders,
+            }).then(function(){
+                location.href = 'http://localhost:8000/user/login/'
+            }).catch(function (err) {
+            console.log(err)})
+        } );
+    </script>
+{% endblock %}

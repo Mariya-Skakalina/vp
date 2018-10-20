@@ -1,0 +1,30 @@
+{%  extends 'layout/basis.html' %}
+{% block content %}
+    <div class="content3">
+    {% include 'layout/header.html' %}
+        <div class="login">
+            <h3>Вход</h3>
+            <p>Убедитесь в том, что Ваша электронная почта подтверждена. Проверть свою электронную почту</p>
+            <form method="post" id="api_login">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Пароль">
+                <input type="button" id="login" value="Войти">
+            </form>
+        </div>
+    </div>
+    <script>
+        let MyHeaders = new Headers();
+        MyHeaders.append('Accept', 'application/json');
+        document.getElementById('login').addEventListener('click', function () {
+            fetch('http://localhost:8000/api/user_login/',{
+                method: 'post',
+                body: new FormData(document.getElementById('api_login')),
+                headers:MyHeaders
+            })
+                .then(function () {
+                    location.href = 'http://localhost:8000/user/user_profil'
+                })
+        })
+    </script>
+
+{% endblock %}

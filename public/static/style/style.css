@@ -1,0 +1,142 @@
+body{
+    margin: 0%;
+}
+.head{
+    grid-area: head;
+}
+.sidebar{
+    grid-area: sd
+}
+.public{
+    grid-area: pb
+}
+.content{
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-areas:
+    "head head head head head head head head head head"
+    ". .  sd pb pb pb pb pb . ."
+}
+.public{
+    border-left: 2px solid grey;
+    padding-left: 1%
+}
+header p{
+    font-family: 'Marck Script', cursive;
+    text-align: center;
+    font-size: 4em;
+    line-height: 0em;
+}
+div.auth p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+}
+div.auth p{
+    display: inline;
+}
+.auth{
+    text-align: center;
+}
+a{
+    font-size: 1.2em;
+    text-decoration-line: none;
+}
+@media screen and (max-width: 980px){
+    .content{
+        margin-left: 2em;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-areas:
+        "head head head head head head"
+        "sd pb pb pb pb pb"
+    }
+}
+@media screen and (max-width: 480px){
+    .public{
+        border-left: 0ch;
+    }
+    .sidebar{
+        border-bottom: 1px solid grey;
+    }
+    .content{
+        margin-left: 1em;
+        margin-right: 1em;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+        "head head head"
+        "sd sd sd"
+        "pb pb pb"
+    }
+}
+.public1{
+    grid-area: pb1
+}
+.content1{
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-areas:
+    "head head head head head head head head head head"
+    ". .  pb1 pb1 pb1 pb1 pb1 pb1 . ."
+}
+.auth a{
+    color: #0f9489;
+    display: inline-block;
+    line-height: 1;
+}
+.auth a:after{
+    display: block;
+    content: "";
+    left:0%;
+    width: 0%;
+    height: 2px;
+    background-color: #000e78;
+    transition: width 0.4s ease-in-out;;
+}
+.auth a:hover:after,
+.auth a:focus:after{
+    width: 100%
+}
+.auth a:hover{
+    color: #000e78;
+}
+a.title{
+    color: #000;
+}
+a.author{
+    color: #0f9489
+}
+p.select{
+    color:#545454;
+    font-size: 1.1  em;
+}
+span.date{
+    color:#909199;
+    font-size: 0.8em;
+}
+p.text{
+    font-size: 1.3em;
+}
+.sidebar a{
+    color:#0f9489;
+    font-size: 1.4em;
+}
+.sidebar a:hover{
+    color: #31043a;
+    text-decoration: underline
+}
+a.title:hover{
+    color: #0f9489;
+    text-decoration: underline
+}
+a.read{
+    border: 1px solid gray;
+    border-radius: 15px;
+    padding: 0em 0.6em;
+    color: #545454
+}
+a.read:hover{
+    background: gray;
+    color: white;
+}
+a.author:hover{
+    color: #000e78;
+}

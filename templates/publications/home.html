@@ -1,0 +1,23 @@
+{% extends 'layout/basis.html' %}
+
+{% block content %}
+    <div class ="content">
+    {% include 'layout/header.html' %}
+    {% include 'layout/sidebar.html' %}
+     <div class="public">
+          {% for i in object_list %}
+               <div>
+
+                   <h3><a class="title" href="public/{{ i.id }}">{{ i.title }}</a></h3>
+                   <p class="select">Разделы:{{ i.section }}</p>
+                   <p><a href="#" class="author">{{ i.author.nickname }}</a></p>
+
+{#                   <p>Дата публикации: {{ i.date_time }}</p>#}
+                   <p id="ctx" class="text">{{ i.ctx|safe|truncatechars_html:350 }}</p>
+                   <a href="public/{{ i.id }}" class="read">Читать... </a>
+               </div>
+          {% endfor %}
+     </div>
+    </div>
+
+{% endblock %}
