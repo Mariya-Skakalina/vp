@@ -1,9 +1,17 @@
 <header class="head">
   <p><a href="/" id="head"> Вильдан<sub>Prog</sub></a></p>
-  <div class="auth">
-      <a href="/user/login/">Войти</a>
-      <p>|</p>
-      <a href="/user/signup/">Регистрация</a>
-    </div>
+    {% if request.session.auth %}
+        <div class="auth">
+          <a href="#">Мой профиль</a>
+          <p>|</p>
+          <a href="#">Выход</a>
+        </div>
+    {% else %}
+        <div class="auth">
+          <a href="/user/login/">Войти</a>
+          <p>|</p>
+          <a href="/user/signup/">Регистрация</a>
+        </div>
+    {% endif %}
     <hr>
 </header>

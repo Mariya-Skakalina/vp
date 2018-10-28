@@ -1,14 +1,15 @@
 {% extends 'layout/basis.html' %}
 
 {% block content%}
-    <div class="content1">
+    <div class="content">
         {% include 'layout/header.html' %}
-        <div class="public1">
-        <h3 class="title1">{{ object.title }}</h3>
-        <p><a href="#" class="author1">{{ object.author }}</a></p>
-        <p class="select">Раздел:{{ object.section }}</p>
-        <p>{{ object.ctx|safe }}</p>
-        <p class="date">{{ object.date_time }}</p>
-    </div>
+        {% include 'layout/sidebar.html' %}
+            <div class="public">
+                <h3 class="title1">{{ object.title }}</h3>
+                <p><a href="#" class="author1">{{ object.author }}</a></p>
+                <p class="select">Раздел:{{ object.section }}</p>
+                <p>{{ object.ctx|safe }}</p>
+                <p class="date">{{ object.date_time }}</p>
+            </div>
     </div>
 {% endblock %}

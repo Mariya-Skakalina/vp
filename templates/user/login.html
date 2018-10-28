@@ -6,7 +6,8 @@
             <h3>Вход</h3>
             <p>Убедитесь в том, что Ваша электронная почта подтверждена. Проверть свою электронную почту</p>
             <form method="post" id="api_login">
-                <input type="email" name="email" placeholder="Email">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Email" autocomplete="off">
                 <input type="password" name="password" placeholder="Пароль">
                 <input type="button" id="login" value="Войти">
             </form>
@@ -15,15 +16,18 @@
     <script>
         let MyHeaders = new Headers();
         MyHeaders.append('Accept', 'application/json');
+        MyHeaders.append('Accept', 'application/json');
         document.getElementById('login').addEventListener('click', function () {
             fetch('http://localhost:8000/api/user_login/',{
                 method: 'post',
                 body: new FormData(document.getElementById('api_login')),
                 headers:MyHeaders
+            }).then(function (res) {
+                return res.json()
+                    //location.href = 'http://localhost:8000/'
+                }).then(res=>{
+                alert(res['res'])
             })
-                .then(function () {
-                    location.href = 'http://localhost:8000/user/user_profil'
-                })
         })
     </script>
 

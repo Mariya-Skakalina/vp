@@ -4,19 +4,51 @@
     <div class ="content">
     {% include 'layout/header.html' %}
     {% include 'layout/sidebar.html' %}
-     <div class="public">
-          {% for i in object_list %}
-               <div>
+     <div class="public" >
+     <div class="d7">
+          <form>
+            <input type="search" placeholder="Искать здесь...">
+            <button type="submit" ></button>
+          </form>
+     </div>
 
-                   <h3><a class="title" href="public/{{ i.id }}">{{ i.title }}</a></h3>
-                   <p class="select">Разделы:{{ i.section }}</p>
-                   <p><a href="#" class="author">{{ i.author.nickname }}</a></p>
+          {% for publications in object_list %}
+               <div class="ctx">
+
+                   <h3><a class="title" href="public/{{ publications.id }}">{{ publications.title }}</a></h3>
+                   <p class="select">Разделы:{% for sec in publications.section.all %}{{ sec.section.title }} {% endfor %}</p>
+                   <p><a href="#" class="author">{{ publications.author.nickname }}</a></p>
 
 {#                   <p>Дата публикации: {{ i.date_time }}</p>#}
-                   <p id="ctx" class="text">{{ i.ctx|safe|truncatechars_html:350 }}</p>
-                   <a href="public/{{ i.id }}" class="read">Читать... </a>
+                   <p id="ctx" class="text">{{ publications.ctx|safe|truncatechars_html:350 }}</p>
+                   <a href="public/{{ publications.id }}" class="read">Читать... </a>
                </div>
           {% endfor %}
+     <div class="pagination">
+
+    <span class="step-links">
+
+        {% if object_list.has_previous %}
+            <a href="?page=1">&laquo; </a>
+            <a href="?page={{ object_list.previous_page_number }}">&#8249; </a>
+            <span>
+                <a href = "?page={{ object_list.previous_page_number }}">{{ object_list.previous_page_number }}</a>
+            </span>
+        {% endif %}
+            <span>
+                <a href = "?page={{ object_list.number }}">{{ object_list.number }}</a>
+            </span>
+
+        {% if object_list.has_next %}
+            <span>
+                <a href = "?page={{ object_list.next_page_number }}">{{ object_list.next_page_number }}</a>
+            </span>
+            <a href="?page={{ object_list.next_page_number }}">&#8250; </a>
+            <a href="?page={{ object_list.paginator.num_pages }}"> &raquo;</a>
+        {% endif %}
+    </span>
+
+</div>
      </div>
     </div>
 

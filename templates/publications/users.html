@@ -1,0 +1,14 @@
+{% extends 'layout/basis.html' %}
+
+{% block content %}
+    <div class="content">
+    {% include 'layout/header.html' %}
+    {% include 'layout/sidebar.html' %}
+        <div class="public">
+            {% for user in object_list %}
+                <h5><a class="title">{{ user.nickname }}</a></h5>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

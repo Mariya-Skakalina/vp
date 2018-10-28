@@ -67,16 +67,6 @@ a{
         "pb pb pb"
     }
 }
-.public1{
-    grid-area: pb1
-}
-.content1{
-    display: grid;
-    grid-template-columns: repeat(10,1fr);
-    grid-template-areas:
-    "head head head head head head head head head head"
-    ". .  pb1 pb1 pb1 pb1 pb1 pb1 . ."
-}
 .auth a{
     color: #0f9489;
     display: inline-block;
@@ -183,4 +173,99 @@ input{
 }
 a#head{
     color: black;
+}
+
+.d7:after {content:""; clear:both; display:table}
+.d7 form {
+  width: 100%;
+  margin-top: 1em;
+}
+.d7 input {
+  width: 97%;
+  height: 2.5em;
+  padding-left: 1em;
+  border-radius: 42px;
+  border: 2px solid #324b4e;
+  outline: none;
+  display: inline-block;
+}
+
+.d7 button {
+  width: 2%;
+  height: 2.5em;
+  background: none;
+  border: none;
+  position: relative;
+  right: 3em;
+}
+.d7 button:before{
+  content: "\f002";
+  font-family: FontAwesome;
+  color: #324b4e;
+}
+
+.cumbs1 a:not(:last-child):after{
+	content: '';
+	display: inline-block;
+	width: 5px;
+	height: 5px;
+	border-top: 2px solid black;
+	border-right: 2px solid black;
+	transform: rotate(45deg);
+	margin-left: 5px;
+    margin-bottom: 0.06em;
+}
+.cumbs1 a{
+    font-size: 1em;
+    color: #417690;
+}
+.cumbs1 a:hover{
+	color: black;
+    text-decoration: underline;
+}
+.cumbs1{
+    margin-top: 1em;
+}
+.menu ul {
+  margin-top: -1.3em;
+  list-style: none;
+  padding-left: 20px;
+  display: none;
+}
+
+.menu .title1 {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.menu .title1::before {
+  font-size: 80%;
+  color: green;
+}
+
+.menu.open ul {
+  display: block;
+}
+.menu ul li{
+  margin: 0%;
+  margin-top: 0%;
+  padding-top: 1em;
+  border-bottom: 2px solid black;
+  width: 8em;
+}
+.title1{
+  border: 2px solid #0f9489;
+  border-radius: 5px;
+  text-align: center;
+  width: 7.2em;
+  margin-left: 1em;
+
+}
+.swon li a{
+  text-decoration: none;
+  color: black
+
+}
+.swon li a:focus{
+  color: #0f9489
 }

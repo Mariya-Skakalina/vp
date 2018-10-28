@@ -1,0 +1,15 @@
+{% extends 'layout/basis.html' %}
+
+{% block content %}
+    <div class="content">
+    {% include 'layout/header.html' %}
+    {% include 'layout/sidebar.html' %}
+        <div class="public">
+            {% for i in object_list %}
+                <div>
+                    <h3><a class="title" href="/sections/{{ i.id }}">{{ i.title }}</a></h3>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

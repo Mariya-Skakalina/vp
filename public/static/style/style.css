@@ -43,7 +43,7 @@ a{
 }
 @media screen and (max-width: 980px){
     .content{
-        margin-left: 2em;
+        margin: auto 2em;
         grid-template-columns: repeat(6, 1fr);
         grid-template-areas:
         "head head head head head head"
@@ -102,15 +102,13 @@ a.title{
     color: #000;
 }
 a.author{
-    color: #0f9489
+    color: #0f9489;
+    font-size: 0.9em;
 }
 p.select{
     color:#545454;
-    font-size: 1.1  em;
-}
-span.date{
-    color:#909199;
-    font-size: 0.8em;
+    font-size: 0.9em;
+    line-height: 0em;
 }
 p.text{
     font-size: 1.3em;
@@ -139,4 +137,54 @@ a.read:hover{
 }
 a.author:hover{
     color: #000e78;
+}
+h3.title1{
+    text-align: center;
+}
+p.date{
+    color: #909199;
+
+}
+a.author1{
+    color: #0f9489;
+    font-size: 1em;
+    padding: 45%;
+}
+.login h3, #signup {
+    font-family: 'Marck Script', cursive;
+    font-size: 1.8em;
+}
+input{
+    outline: none;
+    display: block;
+    margin-bottom: 1em;
+    height: 1.6em;
+    border-radius: 10px;
+}
+.signup, .login{
+    margin: 3em auto;
+    width: 20em;
+    height: 20em;
+    box-shadow: 0 0 7px 3px grey;
+    padding: 10px 20px 10px 20px;
+}
+@media screen and (max-width: 480px){
+    .signup, .login{
+        margin: 1em auto;
+        box-shadow: none;
+    }
+    .content3{
+        margin: auto 1em ;
+    }
+}
+.login p{
+    font-size: 0.8em;
+    color: darkslategray;
+}
+a#head{
+    color: black;
+}
+input#search{
+    width: 90%;
+    padding-left: 5%;
 }
