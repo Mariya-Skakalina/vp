@@ -269,3 +269,6 @@ a#head{
 .swon li a:focus{
   color: #0f9489
 }
+h1.title{
+    text-align: center;
+}

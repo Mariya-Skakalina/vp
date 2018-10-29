@@ -44,3 +44,13 @@ class TopicViews(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class TopicDetailView(DetailView):
+    model = Topic
+    template_name = 'sections/topic_public.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['public'] = Public.objects.filter(section__topic = kwargs['pk']).order_by('-date_time')
+        return context
