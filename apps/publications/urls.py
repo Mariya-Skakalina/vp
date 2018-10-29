@@ -7,6 +7,6 @@ urlpatterns = [
     path('topic/', TopicViews.as_view(), name='TopicViews'),
     # path('users/', Users.as_view(), name='Users'),
     path('topic/<slug:pk>', TopicDetailView.as_view(), name='TopicDetailView'),
-    # path('sections/topic/<slug:pk>', TopicPublic.as_view(), name='TopicPublic')
+    path('topic/section/<slug:pk>', SectionDetailView.as_view(), name='SectionDetailView')
     # path('search/', Search.as_view(), name='Search'),
 ]

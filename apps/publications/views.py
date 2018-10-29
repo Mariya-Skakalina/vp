@@ -52,5 +52,15 @@ class TopicDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['public'] = Public.objects.filter(section__topic = kwargs['pk']).order_by('-date_time')
+        context['public'] = Public.objects.filter(section__topic = self.kwargs['pk']).order_by('-date_time')
+        return context
+
+
+class SectionDetailView(DetailView):
+    model = Section
+    template_name = 'sections/section_public.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['public'] = Public.objects.filter(section=self.kwargs['pk']).order_by('-date_time')
         return context

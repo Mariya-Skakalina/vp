@@ -6,25 +6,24 @@
     {% include 'layout/sidebar.html' %}
         <div class="public">
             <nav class="cumbs1">
-                <a href="/sections/{{ object.topic.id }}">{{ object.topic.title }}</a>
-                <a href="#">{{ object.name }}</a>
-{#                <a href="#"></a>#}
+                <a href="/topic/{{ object.id }}">{{ object.title }}</a>
+                <a href="#"></a>
             </nav>
             <div id="sweeties" class="menu">
                 <p class="title1">Раздел</p>
                 <ul class="swon">
-                    {% for topic in object.section.topic_set.all  %}
-                        <li><a href={{ topic.id }}>{{ topic.name }}</a></li>
+                    {% for section in object.section_set.all %}
+                        <li><a href="/topic/section/{{ section.pk}}">{{ section.name }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
             {% for i in public %}
                 <div class="ctx">
                    <h3><a class="title" href="/public/{{ i.id }}">{{ i.title }}</a></h3>
-                   <p class="select">Разделы:{{ i.section.name }}</p>
+                   <p class="select">Разделы:{{ i.section.section.title}}</p>
                    <p><a href="#" class="author">{{ i.author.nickname }}</a></p>
                    <p id="ctx" class="text">{{ i.ctx|safe|truncatechars_html:350 }}</p>
-                   <a href="public/{{ i.id }}" class="read">Читать... </a>
+                   <a href="/public/{{ i.id }}" class="read">Читать... </a>
                 </div>
             {% endfor %}
         </div>

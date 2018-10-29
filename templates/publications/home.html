@@ -21,7 +21,7 @@
 
 {#                   <p>Дата публикации: {{ i.date_time }}</p>#}
                    <p id="ctx" class="text">{{ publications.ctx|safe|truncatechars_html:350 }}</p>
-                   <a href="public/{{ publications.id }}" class="read">Читать... </a>
+                   <a href="/public/{{ publications.id }}" class="read">Читать... </a>
                </div>
           {% endfor %}
      <div class="pagination">
