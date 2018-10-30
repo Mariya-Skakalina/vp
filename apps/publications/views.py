@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Public, Topic, Section
+from apps.user.models import User
 
 
 class PublicationsViews(ListView):
     model = Public
     template_name = 'publications/home.html'
-    publication_list = Public.objects.filter(publication=True).order_by('-date_time')
+    paginate_by = 1
+    queryset = Public.objects.filter(publication=True).order_by('-date_time')
+    # publication_list = Public.objects.filter(publication=True).order_by('-date_time')
 
 
     # def get_queryset(self):
@@ -29,19 +32,30 @@ class PublicationsViews(ListView):
         return context
 
 
-class PublicDetailViews(DetailView):
-    model = Public
-    template_name = 'publications/detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
 class TopicViews(ListView):
     model = Topic
     template_name = 'sections/topic.html'
 
     def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class UsersView(ListView):
+    model = User
+    template_name = 'publications/users.html'
+    paginate_by = 1
+    queryset = User.objects.filter(activate=True)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class PublicDetailViews(DetailView):
+    model = Public
+    template_name = 'publications/detail.html'
+
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
