@@ -13,11 +13,10 @@ class UserRegistration(APIView):
     def post(self, req, **kwargs):
         data = UserSerializer(data=req.data)
         if data.is_valid():
-            # data.save()
             User(**data.data).save()
             return HttpResponseRedirect('/user/signup/')
         else:
-            return Response({'res':'Не прошло валидацию'})
+            return Response({'res':'Не пройдена валидация'})
 
 
 class UserLogin(APIView):
@@ -30,9 +29,20 @@ class UserLogin(APIView):
                 # используется для рассшифровки хэшированного пароля
                 if compare_hash(user[0].password, crypt.crypt(str(user_login.data['password']),settings.SECRET_KEY_2)):
                     req.session['auth'] = user[0].id
-                    return Response({'res':'true'})
-                return Response({'res':'false'})
+                    return HttpResponseRedirect('/')
+                return Response({'res':'Проверьте корректность email и пароля'})
             else:
-                return Response({'res': 'Нет такого пользователя'})
+                return Response({'res': 'Проверьте указанные данные'})
         else:
             return Response({'res': 'Не правильно введены данные'})
+
+
+class UserSettings(APIView):
+
+    def post(self, req, **kwargs):
+        data = UserSerializer(data=req.data)
+        if data.is_valid():
+            User(*data.data).save()
+            return HttpResponseRedirect('/setting/<slug:pk>/')
+        else:
+            return Response({'res':'Проверьте корректность веденных данных'})

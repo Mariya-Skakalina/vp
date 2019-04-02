@@ -1,50 +1,42 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic.list import MultipleObjectMixin
 from .models import Public, Topic, Section
-from apps.user.models import User
+from .documents import PublicDocument
 
 
 class PublicationsViews(ListView):
     model = Public
     template_name = 'publications/home.html'
-    paginate_by = 1
+    paginate_by = 20
     queryset = Public.objects.filter(publication=True).order_by('-date_time')
-    # publication_list = Public.objects.filter(publication=True).order_by('-date_time')
-
-
-    # def get_queryset(self):
-    #     paginator = Paginator(publication_list, 2, orphans=1)
-    #     page = self.request.GET.get('page')
-    #     try:
-    #         if page != None:
-    #             publication_list = paginator.get_page(page)
-    #         else:
-    #             publication_list = paginator.get_page(2)
-    #     except EmptyPage:
-    #         publication_list = paginator.get_page(paginator.num_pages)
-    #     except PageNotAnInteger:
-    #         publication_list = paginator.get_page(2)
-    #     return publication_list
-    #     return next
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
+def search_query(answer, filt):
+    if filt:
+        print(filt)
+        return PublicDocument.search().filter('term', publication=True).filter("term", topic_public__id = 3).execute()
+    else:
+        return PublicDocument.search().filter('term', publication=True).query('multi_match', query=answer, fields=['title', 'context']).execute()
 
-class TopicViews(ListView):
-    model = Topic
+class SearchPublic(TemplateView):
+    template_name = 'publications/search_public.html'
+
+    def get_context_data(self, **kwargs):
+        search = super().get_context_data(**kwargs)
+        if self.request.GET.get('id'):
+            search['public'] = search_query(self.request.GET.get('answer'), {'topic_public__id': int(self.request.GET.get('id'))})
+        else:
+            search['public'] = search_query(self.request.GET.get('answer'), {})
+        print(search['public'])
+        return search
+
+
+class SectionViews(ListView):
+    model = Section
     template_name = 'sections/topic.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-class UsersView(ListView):
-    model = User
-    template_name = 'publications/users.html'
-    paginate_by = 1
-    queryset = User.objects.filter(activate=True)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,22 +51,24 @@ class PublicDetailViews(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
-
-class TopicDetailView(DetailView):
-    model = Topic
+# Это раздел
+class SectionDetailView(DetailView, MultipleObjectMixin):
+    model = Section
     template_name = 'sections/topic_public.html'
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['public'] = Public.objects.filter(section__topic = self.kwargs['pk']).order_by('-date_time')
+        object_list = self.object.public_set.filter(section=self.kwargs['pk']).order_by('-date_time')
+        context = super(SectionDetailView, self).get_context_data(object_list=object_list, **kwargs)
         return context
 
-
-class SectionDetailView(DetailView):
-    model = Section
+# Категория
+class TopicDetailView(DetailView, MultipleObjectMixin):
+    model = Topic
     template_name = 'sections/section_public.html'
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['public'] = Public.objects.filter(section=self.kwargs['pk']).order_by('-date_time')
+        object_list = self.object.public_set.filter(topic_public=self.kwargs['pk']).order_by('-date_time')
+        context = super(TopicDetailView, self).get_context_data(object_list=object_list, **kwargs)
         return context

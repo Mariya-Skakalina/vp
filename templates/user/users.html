@@ -6,7 +6,7 @@
     {% include 'layout/sidebar.html' %}
         <div class="public">
             {% for user in object_list %}
-                <h5><a class="title">{{ user.nickname }}</a></h5>
+                <h5><a class="title" href="/users/detail/{{ user.id }}">{{ user.nickname }}</a></h5>
             {% endfor %}
         {% if is_paginated %}
         <div class="pagination">

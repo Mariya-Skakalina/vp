@@ -2,15 +2,22 @@
   <p><a href="/" id="head"> Вильдан<sub>Prog</sub></a></p>
     {% if request.session.auth %}
         <div class="auth">
-          <a href="#">Мой профиль</a>
+          <a id='my-profile' href="#boo">Мой профиль</a>
+          <div id="boo" class="modalDialog">
+              <div>
+                  <a href="#close" title="Закрыть" class="close" style="background: red; color: black; border: 1px solid black; ">X</a>
+                  <h5 class="settings"><a href="/users/setting/{{ request.session.auth }}">Настройки</a></h5>
+                  <h5 class="settings"><a>Мои публикации</a></h5>
+              </div>
+          </div>
           <p>|</p>
           <a href="#">Выход</a>
         </div>
     {% else %}
         <div class="auth">
-          <a href="/user/login/">Войти</a>
+          <a href="/users/login/">Войти</a>
           <p>|</p>
-          <a href="/user/signup/">Регистрация</a>
+          <a href="/users/signup/">Регистрация</a>
         </div>
     {% endif %}
     <hr>

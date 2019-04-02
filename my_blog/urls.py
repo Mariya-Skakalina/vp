@@ -21,7 +21,7 @@ from .settings import MEDIA_ROOT, MEDIA_URL
 
 
 urlpatterns = [
-    path('user/', include('apps.user.urls')),
+    path('users/', include('apps.user.urls')),
     path('', include('apps.publications.urls')),
     path('api/', include('rest_api.urls')),
     path('admin/', admin.site.urls),

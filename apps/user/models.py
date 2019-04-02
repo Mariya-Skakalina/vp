@@ -10,6 +10,9 @@ class User(models.Model):
     email = models.EmailField('Email', max_length=200, unique=True)
     password = models.CharField('Пароль', max_length=30)
     code = models.CharField('Код активации', max_length=200, null=True)
+    about_oneself = models.TextField(null=True, blank=True)
+    company = models.BooleanField('Компания', null=True, blank=True, default=False)
+    partner = models.BooleanField('Партнер', null=True, blank=True, default=False)
     activate = models.BooleanField('Активный', default=False)
 
     # Генерирует случайный код

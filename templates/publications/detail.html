@@ -7,7 +7,8 @@
             <div class="public">
                 <h1 class="title" >{{ object.title }}</h1>
                 <p><a href="#" class="author1">{{ object.author }}</a></p>
-                <p class="select">Раздел:{{ object.section }}</p>
+                <p class="select">Раздел:{% for sec in object.section.all %}{{ sec.name }} {% endfor %}</p>
+                <p class="select">Категории:{% for top in object.topic_public.all %}{{ top.title }} {% endfor %}</p>
                 <p>{{ object.ctx|safe }}</p>
                 <p class="date">{{ object.date_time }}</p>
             </div>

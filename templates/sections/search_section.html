@@ -1,0 +1,23 @@
+{% extends 'layout/basis.html' %}
+
+{% block content %}
+    <div class ="content">
+    {% include 'layout/header.html' %}
+    {% include 'layout/sidebar.html' %}
+     <div class="public" >
+
+
+          {% for publications in public %}
+               <div class="ctx">
+                   <h3><a class="title" href="/public/{{ publications.id }}">{{ publications.title }}</a></h3>
+                   <p class="select">Раздел:{% for sec in publications.section %}{{ sec.name }}{% endfor %}</p>
+                   <p class="select">Категории:{% for top in publications.topic_public %}{{ top.title }}, {% endfor %}</p>
+                   <p><a href="#" class="author">{{ publications.author.nickname }}</a></p>
+                   <p id="ctx" class="text">{{ publications.context|safe|truncatechars_html:350 }}</p>
+                   <a href="/public/{{ publications.id }}" class="read">Читать... </a>
+               </div>
+          {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

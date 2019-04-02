@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'layout/basis.html' %}
+
+{% block content %}
+     <div class="content">
+        {% include 'layout/header.html' %}
+        {% include 'layout/sidebar.html' %}
+            <div class="public">
+                <p>{{ object.nickname }}</p>
+                <p>Email:{{ object.email }}</p>
+            </div>
+    </div>
+{% endblock %}

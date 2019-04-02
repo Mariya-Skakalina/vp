@@ -5,28 +5,52 @@
     {% include 'layout/header.html' %}
     {% include 'layout/sidebar.html' %}
         <div class="public">
+
+        {% with True as category_search %}
+         {%  include 'layout/search.html' %}
+        {% endwith %}
             <nav class="cumbs1">
-                <a href="/topic/{{ object.topic.id }}">{{ object.topic.title }}</a>
-                <a href="#">{{ object.name }}</a>
+                <a href="/section/{{ object.section.id }}">{{ object.section.name }}</a>
+                <a href="#">{{ object.title }}</a>
 {#                <a href="#"></a>#}
             </nav>
-            <div id="sweeties" class="menu">
-                <p class="title1">Раздел</p>
-                <ul class="swon">
-                    {% for topic in object.topic.section_set.all  %}
-                        <li><a href={{ section.id }}>{{ section.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% for i in public %}
+            {% for i in object_list %}
                 <div class="ctx">
                    <h3><a class="title" href="/public/{{ i.id }}">{{ i.title }}</a></h3>
-                   <p class="select">Разделы:{{ i.section.name }}</p>
+                   <p class="select">Раздел:{% for sec in i.section.all %}{{ sec.name }} {% endfor %}</p>
+                   <p class="select">Категории:{% for top in i.topic_public.all %}{{ top.title }}, {% endfor %}</p>
                    <p><a href="#" class="author">{{ i.author.nickname }}</a></p>
                    <p id="ctx" class="text">{{ i.ctx|safe|truncatechars_html:350 }}</p>
                    <a href="/public/{{ i.id }}" class="read">Читать... </a>
                 </div>
             {% endfor %}
+        {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; </a>
+                <a href="?page={{ page_obj.previous_page_number }}">&#8249; </a>
+            {% else %}
+                <a class="disabled"><span>&laquo;</span></a>
+                <a class="disabled">&#8249; </a>
+            {% endif %}
+            {% for i in paginator.page_range %}
+              {% if page_obj.number == i %}
+                <a class="active"><span>{{ i }} <span class="sr-only"></span></span></a>
+              {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+              {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+
+                 <a href="?page={{ page_obj.next_page_number }}">&#8250; </a>
+                 <a href="?page={{ page_obj.paginator.num_pages }}"> &raquo;</a>
+            {% else %}
+                <a class="disabled">&#8250; </a>
+                <a class="disabled"><span>&raquo;</span></a>
+
+            {% endif %}
+        </div>
+        {% endif %}
         </div>
     </div>
     <script src="/static/js/section.js"></script>

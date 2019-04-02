@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_elasticsearch_dsl',
     'ckeditor',
     'ckeditor_uploader',
     'rest_api',
@@ -83,10 +84,21 @@ WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db2.sqlite3'),
-    }
+            'ENGINE': "django.db.backends.postgresql",
+            'NAME': 'my_blog',
+            "USER": "postgres",
+            "PASSWORD": "",
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
 }
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': '127.0.0.1:9200'
+    },
+}
+
 
 
 # Password validation
@@ -113,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-Ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 

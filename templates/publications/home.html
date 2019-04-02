@@ -5,21 +5,14 @@
     {% include 'layout/header.html' %}
     {% include 'layout/sidebar.html' %}
      <div class="public" >
-     <div class="d7">
-          <form>
-            <input type="search" placeholder="Искать здесь...">
-            <button type="submit" ></button>
-          </form>
-     </div>
-
+     {% include 'layout/search.html' %}
           {% for publications in object_list %}
                <div class="ctx">
 
                    <h3><a class="title" href="public/{{ publications.id }}">{{ publications.title }}</a></h3>
-                   <p class="select">Разделы:{% for sec in publications.section.all %}{{ sec.section.title }} {% endfor %}</p>
+                   <p class="select">Раздел:{% for sec in publications.section.all %}{{ sec.name }}{% endfor %}</p>
+                   <p class="select">Категории:{% for top in publications.topic_public.all %}{{ top.title }}, {% endfor %}</p>
                    <p><a href="#" class="author">{{ publications.author.nickname }}</a></p>
-
-{#                   <p>Дата публикации: {{ i.date_time }}</p>#}
                    <p id="ctx" class="text">{{ publications.ctx|safe|truncatechars_html:350 }}</p>
                    <a href="/public/{{ publications.id }}" class="read">Читать... </a>
                </div>

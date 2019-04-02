@@ -1,0 +1,11 @@
+
+<div class="d7">
+
+      <form type="GET" action="/search/" >
+        {% if category_search == True %}
+          <input value="{{ object.id }}" name="id" style="display: none">
+        {% endif %}
+        <input type="search" placeholder="Искать здесь..." name="answer" >
+        <button type="submit"></button>
+      </form>
+ </div>
