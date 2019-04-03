@@ -1,0 +1,22 @@
+{% extends 'layout/basis.html' %}
+
+{% block content %}
+    <div class ="content">
+    {% include 'layout/header.html' %}
+    {% include 'layout/sidebar.html' %}
+     <div class="public" >
+         <div class="d7">
+              <form type="GET" action="/users/search/" >
+                <input type="search" placeholder="Искать здесь..." name="answer" >
+                <button type="submit"></button>
+              </form>
+         </div>
+          {% for user in users %}
+               <div class="ctx">
+                   <h5><a class="title" href="/users/detail/{{ user.id }}">{{ user.nickname }}</a></h5>
+               </div>
+          {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

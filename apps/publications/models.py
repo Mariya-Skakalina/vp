@@ -6,6 +6,12 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class Section(models.Model):
     name = models.CharField('Подраздел', max_length=255, unique=True, null=True, blank=True)
 
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'topic': self.topic
+        }
+
     def __str__(self):
         return self.name
 
@@ -26,6 +32,8 @@ class Public(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     publication = models.BooleanField(default=False)
+
+
 
     def __str__(self):
         return self.title

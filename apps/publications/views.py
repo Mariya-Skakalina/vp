@@ -17,7 +17,7 @@ class PublicationsViews(ListView):
 def search_query(answer, filt):
     if filt:
         print(filt)
-        return PublicDocument.search().filter('term', publication=True).filter("term", topic_public__id = 3).execute()
+        return PublicDocument.search().filter('term', publication=True).filter("term", topic_public__id = 3).query('multi_match', query=answer, fields=['title', 'context']).execute()
     else:
         return PublicDocument.search().filter('term', publication=True).query('multi_match', query=answer, fields=['title', 'context']).execute()
 

@@ -1,0 +1,18 @@
+{% extends 'layout/basis.html' %}
+
+{% block content %}
+    <div class ="content">
+    {% include 'layout/header.html' %}
+    {% include 'layout/sidebar.html' %}
+     <div class="public" >
+     {% with True as Partner %}
+     {% include 'layout/user-search.html' %}
+          {% for user in users %}
+               <div class="ctx">
+                   <h5><a class="title" href="/users/detail/{{ user.id }}">{{ user.nickname }}</a></h5>
+               </div>
+          {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

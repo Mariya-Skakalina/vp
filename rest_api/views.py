@@ -18,7 +18,7 @@ class UserRegistration(APIView):
         else:
             return Response({'res':'Не пройдена валидация'})
 
-
+# Вход
 class UserLogin(APIView):
 
     def post(self, req, **kwargs):
@@ -40,9 +40,11 @@ class UserLogin(APIView):
 class UserSettings(APIView):
 
     def post(self, req, **kwargs):
-        data = UserSerializer(data=req.data)
+        data = UserSettingSerializer(data=req.data)
         if data.is_valid():
-            User(*data.data).save()
-            return HttpResponseRedirect('/setting/<slug:pk>/')
+            user = req.session['auth']
+            print(data.data)
+            result = User.objects.filter(id=user).update(**data.data)
+            return Response({'res': 'Изменения сохранены'})
         else:
             return Response({'res':'Проверьте корректность веденных данных'})

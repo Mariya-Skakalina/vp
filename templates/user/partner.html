@@ -6,11 +6,11 @@
     {% include 'layout/sidebar.html' %}
         <div class="public">
             <div class="d7">
-                  <form type="GET" action="/users/search/" >
-                    <input type="search" placeholder="Искать здесь..." name="answer" >
-                    <button type="submit"></button>
-                  </form>
-             </div>
+              <form type="GET" action="/users/search/" >
+                <input type="search" placeholder="Искать здесь..." name="answer" >
+                <button type="submit"></button>
+              </form>
+            </div>
             {% for user in object_list %}
                 <h5><a class="title" href="/users/detail/{{ user.id }}">{{ user.nickname }}</a></h5>
             {% endfor %}

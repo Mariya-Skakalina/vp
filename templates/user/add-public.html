@@ -1,0 +1,46 @@
+{% extends 'layout/basis.html' %}
+
+{% block content%}
+    {% load static %}
+        <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+        <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+        <div class="content">
+            {% include 'layout/header.html' %}
+            {% include 'layout/sidebar.html' %}
+                <div class="public">
+                     <form method="post" enctype="multipart/form-data">
+                     {% csrf_token %}
+                        <div class="mb-3 mt-5">
+                            <label for="title">Заголовок</label>
+                                <input id="title" name="title">
+                            </div>
+                        <div class="container">
+                            <label for="section">Раздел: </label>
+                            <br>
+                            <select id="section" name="section"><option>Выберите из списка</option>
+                            {% for i in section %}
+                                <option>{{ i.name }}</option>
+                            {% endfor %}
+                        </select><br>
+                        </div>
+                     <dinv>
+                         <label for="">Ваберите категорию</label>
+                         <br>
+                         <select id="topic" multiple="multiple" name="topic">
+                             {% for i in topic %}
+                                <option>{{ i.title }}</option>
+                             {% endfor%}
+                         </select>
+                     </dinv>
+                        <textarea  name="ctx" rows="10" cols="80"></textarea>
+                        <input type="submit" class="mt-3"/>
+                      </form>
+                </div>
+    </div>
+    <script>
+        CKEDITOR.replace('content');
+        CKEDITOR.config.extraPlugins = 'uploadwidget';
+        CKEDITOR.config.extraPlugins = 'uploadimage';
+        CKEDITOR.config.uploadUrl = '/';
+    </script>
+{% endblock %}

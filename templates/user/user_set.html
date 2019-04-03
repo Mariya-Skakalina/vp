@@ -7,11 +7,16 @@
             <div class="public">
                 <form id="api_form" method="post">
                     {% csrf_token %}
-                    <input type="text" value="{{ object.nickname }}">
-                    <input type="email" value="{{ object.email }}">
-                    <textarea>{{ object.about_oneself }}</textarea>
-                    <input type="checkbox">
-                    <input type="button" id="save" value="Зарегистрироваться">
+                    <input type="text" name="nickname" value="{{ object.nickname }}">
+                    <input type="email" name="email" value="{{ object.email }}" >
+                    <textarea name="about_oneself">{{ object.about_oneself }}</textarea>
+                    {%  if object.partner %}
+                        <input type="checkbox" id="partner" name="partner" value="true" checked>
+                    {% else %}
+                        <input type="checkbox" id="partner" name="partner" value="true">
+                    {% endif %}
+                    <label for="partner">Могу быть напарником</label>
+                    <input type="button" id="save" value="Редактировать">
                 </form>
             </div>
     </div>
@@ -23,8 +28,10 @@
                 method: 'post',
                 body: new FormData(document.getElementById('api_form')),
                 headers: myHeaders,
-            }).then(function(){
-                location.href = 'http://localhost:8000/api/user_settings/'
+            }).then(function (res) {
+                return res.json()
+                }).then(res=>{
+                alert(res['res'])
             }).catch(function (err) {
             console.log(err)})
         } );
