@@ -3,6 +3,7 @@ from django.conf import settings
 import random
 import string
 import crypt
+from apps.publications.models import Public
 
 
 class User(models.Model):
@@ -33,3 +34,12 @@ class User(models.Model):
 
     def __str__(self):
         return self.nickname
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    public = models.ForeignKey(Public, on_delete=models.CASCADE, null=True, blank=True)
+    like = models.BooleanField(default=False)
+    comment = models.ForeignKey('comment.Comment', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.like)

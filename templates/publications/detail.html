@@ -6,11 +6,66 @@
         {% include 'layout/sidebar.html' %}
             <div class="public">
                 <h1 class="title" >{{ object.title }}</h1>
-                <p><a href="#" class="author1">{{ object.author }}</a></p>
+                <p><a href="#" >{{ object.author }}</a></p>
                 <p class="select">Раздел:{% for sec in object.section.all %}{{ sec.name }} {% endfor %}</p>
                 <p class="select">Категории:{% for top in object.topic_public.all %}{{ top.title }} {% endfor %}</p>
                 <p>{{ object.ctx|safe }}</p>
                 <p class="date">{{ object.date_time }}</p>
+                <p id="cool" name="like">Like</p>
+                <form id="api-comment">
+                    {% csrf_token %}
+                    <input id="publication-id" value="{{ object.id }}" style="display: none" name="public_comment">
+                    <textarea name="text" ></textarea>
+                    <input type="button" value="Отправить" id="send">
+                </form>
+                <div class="comments">
+                    {% for com in object.comments.all %}
+                        <p><a>{{ com.author_comment }}</a></p>
+                        <p>{{ com.text }}</p>
+                        <p>{{ com.created_date }}</p>
+                        <p><a name="loo">Ответить</a></p>
+                        <form id="answer_form">
+                        {% csrf_token %}
+                            <input value="{{ com.id }}" style="display: none" name="answer">
+                            <textarea name="text" ></textarea>
+                            <input type="button" id="answer">
+                        </form>
+
+                    {% endfor %}
+
+                </div>
             </div>
+    <script>
+        let MyHeaders = new Headers();
+        MyHeaders.append('Accept', 'application/json');
+        MyHeaders.append('Accept', 'application/json');
+
+        function foo(url,form){
+            fetch('http://localhost:8000/api/'+url,{
+                method: 'post',
+                body: form,
+                headers:MyHeaders
+            }).then(function (res) {
+                return res.json()
+                }).then(res=>{
+                alert(res['res'])
+            })
+        }
+        document.getElementById('send').addEventListener('click', function () {
+            foo('comment/', new FormData(document.getElementById('api-comment')))
+        });
+        let all = document.querySelectorAll('#answer');
+        for (let i of all) {
+            i.addEventListener('click', function (e) {
+                fool('answer/',new FormData(e.target.form))
+            })
+        }
+        document.getElementById('cool').addEventListener('click', function () {
+            MyHeaders.append('Content-Type','application/json');
+            MyHeaders.append('X-CSRFToken',document.getElementsByName('csrfmiddlewaretoken')[0].value);
+            foo('rating/', JSON.stringify({'public': document.getElementById('publication-id').value, 'like': true, 'csrfmiddlewaretoken': document.getElementsByName('csrfmiddlewaretoken')[0].value}))
+        })
+
+    </script>
     </div>
 {% endblock %}

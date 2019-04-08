@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from hmac import compare_digest as compare_hash
 from apps.user.models import User
-from .serializer import *
+from ..serializers.serializer_user import *
 from django.http import HttpResponseRedirect
 
 
@@ -43,7 +43,6 @@ class UserSettings(APIView):
         data = UserSettingSerializer(data=req.data)
         if data.is_valid():
             user = req.session['auth']
-            print(data.data)
             result = User.objects.filter(id=user).update(**data.data)
             return Response({'res': 'Изменения сохранены'})
         else:

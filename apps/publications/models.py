@@ -1,5 +1,5 @@
 from django.db import models
-from apps.user.models import User
+# from apps.user.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
@@ -30,10 +30,8 @@ class Public(models.Model):
     section = models.ManyToManyField(Section)
     topic_public = models.ManyToManyField(Topic, blank=True)
     date_time = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    author = models.ForeignKey('user.User',on_delete=models.CASCADE, blank=False, null=False)
     publication = models.BooleanField(default=False)
-
-
 
     def __str__(self):
         return self.title

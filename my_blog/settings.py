@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'apps.user',
     'apps.publications',
     'rest_framework',
+    'apps.comment',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

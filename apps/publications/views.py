@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.list import MultipleObjectMixin
 from .models import Public, Topic, Section
 from .documents import PublicDocument
+from apps.comment.models import Comment
 
 
 class PublicationsViews(ListView):
